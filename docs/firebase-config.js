@@ -16,9 +16,13 @@ export const firebaseConfig = {
   appId: '1:92127086523:web:5af3d25f0fcc9a2d98669e',
   // reCAPTCHA Enterprise site key for App Check (console > Security > App Check).
   appCheckSiteKey: '6Le3rzIuAAAAAGk_bGUcha1i648P1RiOs4SSDHpP',
-  // Use the App Check debug provider for local dev / hackathon submissions.
-  // The SDK auto-generates a debug token and prints it in the browser console;
-  // register it in the console (App Check > Apps > Manage debug tokens).
-  // Debug tokens are accepted in BuildHybridAI submissions.
-  appCheckDebug: true,
+  // App Check debug provider is OFF on the hosted site. When this is true the
+  // SDK auto-generates a debug token per browser, and any browser whose token
+  // is not registered in the console gets "Firebase App Check token is invalid"
+  // (HTTP 401) on every AI call — that broke the live site for all visitors.
+  // The hosted site must use the reCAPTCHA Enterprise provider above instead
+  // (mdeden1618.github.io is in the key's allowed domains). Debug mode stays
+  // on only for local dev (workspace root firebase-config.js, whose token
+  // "ScamSpotter Dev" is registered in the console).
+  appCheckDebug: false,
 };
