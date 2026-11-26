@@ -1,0 +1,9 @@
+# Local overrides — never commit real credentials.
+# firebase-config.js holds the LIVE client config (web API key + reCAPTCHA
+# site key). Those two are client-side identifiers by design and are safe to
+# ship. Never add App Check debug tokens, server keys or service accounts.
+firebase-config.local.js
+.env
+.env.*
+node_modules/
+.DS_Store

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamSpotter AI — Check suspicious messages with hybrid AI</title>
+  <meta name="description" content="Paste a suspicious SMS, WhatsApp, Telegram or email message. ScamSpotter AI checks it with Firebase AI Logic hybrid inference — on-device Gemini Nano first, cloud Gemini as fallback.">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js",
+      "firebase/ai": "https://www.gstatic.com/firebasejs/13.0.0/firebase-ai.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js",
+      "firebase/firestore": "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js",
+      "firebase/app-check": "https://www.gstatic.com/firebasejs/13.0.0/firebase-app-check.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div>
+        <h1>🛡️ ScamSpotter AI</h1>
+        <p class="subtitle">Paste a suspicious message — AI checks it on your device first, in the cloud only when needed.</p>
+      </div>
+      <div class="top-actions">
+        <span id="mode-badge" class="badge">Starting…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="demo-banner" class="demo-banner" hidden>
+      ⚠️ <strong>DEMO MODE</strong> — no Firebase config found, so this check runs a local
+      keyword heuristic in your browser. No message leaves your device and no Firebase
+      or AI call is made. Add your real Firebase config to <code>firebase-config.js</code>
+      to enable Firebase AI Logic hybrid inference.
+    </div>
+    <div id="error-banner" class="error-banner" hidden></div>
+
+    <section class="panel">
+      <h2>🔍 Check a message</h2>
+      <p class="hint">Paste an SMS, WhatsApp, Telegram or email message that looks suspicious.
+        Your message is analysed by AI — on-device first (private, free), cloud only as a fallback.</p>
+      <label class="field-label" for="message-input">Suspicious message</label>
+      <textarea id="message-input" rows="5"
+        placeholder="Paste the message here — e.g. &quot;Congratulations! You won $10,000, click this link to claim…&quot;"></textarea>
+      <div class="row">
+        <button id="check-btn" type="button" class="btn-primary">Check Message</button>
+        <button id="clear-btn" type="button" class="btn-ghost">Clear</button>
+      </div>
+      <p class="status-line" id="status-line">Ready.</p>
+
+      <h3 class="samples-title">Try a sample</h3>
+      <div class="samples">
+        <button type="button" class="sample-btn" data-sample="prize">🎁 Fake prize SMS</button>
+        <button type="button" class="sample-btn" data-sample="telegram">💬 Telegram token sale</button>
+        <button type="button" class="sample-btn" data-sample="bank">🏦 Fake bank lockout</button>
+      </div>
+    </section>
+
+    <section class="panel" id="result-panel" hidden>
+      <div class="result-head">
+        <h2>Result</h2>
+        <span id="inference-badge" class="badge">—</span>
+      </div>
+      <div class="verdict-row">
+        <span id="verdict-badge" class="verdict">—</span>
+        <div class="confidence">
+          <span class="confidence-label">Confidence</span>
+          <div class="confidence-bar"><div id="confidence-fill" class="confidence-fill" style="width: 0%"></div></div>
+          <span id="confidence-value">—</span>
+        </div>
+      </div>
+      <div class="result-block">
+        <h3>🚩 Red flags</h3>
+        <ul id="red-flags"></ul>
+      </div>
+      <div class="result-block">
+        <h3>💡 Why</h3>
+        <p id="explanation"></p>
+      </div>
+      <div class="result-block">
+        <h3>✅ What to do</h3>
+        <p id="recommended-action"></p>
+      </div>
+      <p class="meta" id="result-meta"></p>
+    </section>
+
+    <section class="panel">
+      <h2>🕘 Recent checks</h2>
+      <p class="hint" id="history-hint">Your recent checks appear here. Click one to view it again.</p>
+      <ul id="history-list" class="history-list">
+        <li class="history-empty">No checks yet.</li>
+      </ul>
+    </section>
+
+    <section class="panel how">
+      <h2>⚙️ How it works — hybrid inference</h2>
+      <ol>
+        <li><strong>On-device first:</strong> when your browser supports it (Chrome on desktop, Gemini Nano),
+          the message is analysed right on your device. It never leaves your phone or computer — private and free.</li>
+        <li><strong>Cloud fallback:</strong> if no on-device model is available, the same check runs on cloud Gemini
+          through Firebase AI Logic. You always get an answer.</li>
+        <li><strong>Protected:</strong> Firebase App Check guards the AI service, and every check is saved
+          (anonymously) to Firestore so you can review your history.</li>
+      </ol>
+      <p class="hint">Built for the #BuildHybridAI 2026 hackathon (Firebase / Google) with Firebase AI Logic,
+        App Check, Anonymous Auth and Firestore. Demo mode uses a local keyword heuristic — no AI call — until a
+        real Firebase config is added.</p>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    ScamSpotter AI — built for the BuildHybridAI 2026 hackathon (Firebase AI Logic, hybrid inference).
+    This tool gives an AI opinion, not a guarantee — always verify through official channels.
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
