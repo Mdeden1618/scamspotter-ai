@@ -4,8 +4,12 @@
 // your own from the Firebase console (Project settings > Your apps > Web app).
 // See README.md for the full setup checklist.
 //
-// Do NOT commit a firebase-config.js with real credentials to a public repo.
-// The firebase-config.js that ships with this project contains placeholders only.
+// The Firebase web API key and reCAPTCHA Enterprise site key are
+// client-side identifiers BY DESIGN — they are meant to ship in client code
+// and are protected by Firebase App Check + API restrictions, not by secrecy.
+// The firebase-config.js in this project therefore contains the live config
+// and is committed to the repo. Never put server keys, service-account files
+// or App Check debug tokens in it.
 export const firebaseConfig = {
   // Web API key (Project settings > General > Your apps).
   apiKey: 'YOUR_API_KEY',

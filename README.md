@@ -90,12 +90,25 @@ scamspotter-ai/
 │   ├── index.html      # UI + Firebase import map (SDK v13.0.0 via CDN)
 │   ├── app.js          # Hybrid AI Logic, App Check, Auth, Firestore, demo heuristic
 │   └── style.css
+├── docs/               # GitHub Pages copy — identical to public/, plus a live firebase-config.js
+│   ├── index.html      # (same as public/index.html)
+│   ├── app.js          # (same as public/app.js, except it imports './firebase-config.js')
+│   ├── style.css       # (same as public/style.css)
+│   └── firebase-config.js  # Live client config (same file as the root one)
 ├── firebase-config.js          # Live client config (web API key + reCAPTCHA site key — client-safe by design)
 ├── firebase-config.example.js  # Template for the real config
 ├── README.md
 ├── LICENSE             # Apache 2.0
 └── .gitignore
 ```
+
+> **Why `docs/`?** GitHub Pages can only serve from the repository root or
+> `/docs` on a branch. The live app lives in `public/` (importing
+> `../firebase-config.js`), so `docs/` is an exact copy of it with the config
+> import adjusted to `./firebase-config.js` — that is the only difference.
+> Pages is configured to serve `docs/` from `main`, so the hosted URL is
+> https://mdeden1618.github.io/scamspotter-ai/ — keep the two copies in sync
+> when you change the app.
 
 ## How the hybrid call works
 
